@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/andij/drew-jones#readme",
   "devDependencies": {
+    "@11ty/eleventy": "^0.10.0",
     "less-watch-compiler": "^1.14.1"
   }
 }
