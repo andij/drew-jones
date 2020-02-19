@@ -1,0 +1,23 @@
+{
+  "name": "drew-jones",
+  "version": "1.0.0",
+  "description": "drew-jones.com",
+  "main": ".eleventy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andij/drew-jones.git"
+  },
+  "keywords": [],
+  "author": "Drew Jones - @andij",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andij/drew-jones/issues"
+  },
+  "homepage": "https://github.com/andij/drew-jones#readme",
+  "devDependencies": {
+    "less-watch-compiler": "^1.14.1"
+  }
+}
