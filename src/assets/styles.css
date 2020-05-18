@@ -23,10 +23,13 @@ main {
 header {
   align-items: center;
   font-size: 2em;
-  font-family: 'Volkhov', serif;
+  font-family: 'Merriweather', serif;
 }
 header h1,
 header p {
   line-height: 0.875;
   margin: 0;
+}
+header p {
+  color: #adadad;
 }
