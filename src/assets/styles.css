@@ -3,7 +3,7 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   background-color: black;
-  color: white;
+  color: #8B0100;
 }
 body {
   margin: 0;
@@ -32,7 +32,5 @@ header h1,
 header p {
   line-height: 0.875;
   margin: 0;
-}
-header p {
-  color: #adadad;
+  text-transform: lowercase;
 }
