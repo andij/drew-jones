@@ -30,7 +30,14 @@ header {
 }
 header h1,
 header p {
-  line-height: 0.875;
+  line-height: 1;
   margin: 0;
   text-transform: lowercase;
+}
+header h1 {
+  letter-spacing: -0.009em;
+  font-size: 3em;
+}
+header p {
+  margin-inline-start: 4.8em;
 }
