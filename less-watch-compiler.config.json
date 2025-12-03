@@ -1,6 +1,0 @@
-{
-  "watchFolder": "src",
-  "outputFolder": "src/assets",
-  "runOnce": false,
-  "mainFile": "styles.less"
-}

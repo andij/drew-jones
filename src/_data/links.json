@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Kanban",
+    "url": "https://github.com/orgs/centrica-engineering/projects/1/views/1",
+    "description": "Nucleus GitHub project board.",
+    "icon": "cat"
+  },
+  {
+    "title": "Proposals",
+    "url": "https://github.com/orgs/ConnectedHomes/projects/50/views/1",
+    "description": "Interactive visual essays and experiments.",
+    "icon": "compass"
+  },
+  {
+    "title": "Highpoint",
+    "url": "#!",
+    "description": "Small creative ideas and demos.",
+    "icon": "sparkles"
+  }
+]

@@ -1,5 +1,8 @@
 # compiled output
-/dist
+/_site
 
 # dependencies
 /node_modules
+
+# system files
+.DS_Store
