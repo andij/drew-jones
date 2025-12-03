@@ -1,43 +1,122 @@
+:root {
+  --color-red: #8b0100;
+  --color-pink: #ffb3b3;
+  --color-peach: #ffd4b3;
+  --color-yellow: #ffedb3;
+  --color-mint: #b3e5d4;
+  --color-black: #010b0c;
+  --color-black-light: #212b2c;
+
+  --color-primary: var(--color-red);
+  --color-secondary: var(--color-pink);
+  --color-background: var(--color-black);
+  --color-foreground: var(--color-peach);
+  --color-bright: var(--color-yellow);
+  --color-muted: var(--color-mint);
+}
+
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  background-color: black;
-  color: #8B0100;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
 }
+
 body {
-  margin: 0;
   font-family: sans-serif;
+  margin: 0;
 }
+
 h1,
-h2 {
+h2,
+p {
+  margin-block: 0;
   font-weight: normal;
 }
+
 main {
   display: grid;
-  height: 100vh;
-  width: 100vw;
-  justify-items: center;
-  align-items: center;
+  place-items: center;
+  min-height: 100dvh;
 }
-header {
-  align-items: center;
-  font-size: 2em;
-  font-family: "Petrona", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+
+.logo {
+  & h1,
+  & p {
+    font-weight: normal;
+    font-family: "Petrona", serif;
+    line-height: 1;
+    color: var(--color-primary);
+    margin: 0;
+    text-transform: lowercase;
+  }
+
+  & h1 {
+    letter-spacing: -0.009em;
+    font-size: 6em;
+  }
+
+  & p {
+    margin-inline-start: 4.8em;
+    font-size: 2em;
+  }
 }
-header h1,
-header p {
-  line-height: 1;
-  margin: 0;
-  text-transform: lowercase;
-}
-header h1 {
-  letter-spacing: -0.009em;
-  font-size: 3em;
-}
-header p {
-  margin-inline-start: 4.8em;
+
+.links {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  opacity: 0.5;
+  display: flex;
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  & .card {
+    display: flex;
+    background-color: var(--color-background);
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    cursor: default;
+    padding-inline-start: 0.25em;
+    padding-inline-end: 0.5em;
+    padding-block-start: 0.25em;
+    padding-block-end: 0.25em;
+    border-radius: 50px;
+
+    &:hover {
+      background-color: var(--color-black-light);
+    }
+
+    & .icon {
+      width: 1em;
+      height: 1em;
+      color: var(--color-bright);
+      float: left;
+      margin-inline-end: 0.25em;
+      
+      /* Ensure lucide SVG icons scale to container */
+      & svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+
+    & .title {
+      font-size: 1em;
+    }
+
+    & .description {
+      font-size: 0.75em;
+      color: var(--color-muted);
+    }
+  }
 }

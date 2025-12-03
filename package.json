@@ -1,10 +1,13 @@
 {
   "name": "drew-jones",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "drew-jones.com",
   "main": ".eleventy.js",
   "scripts": {
-    "start": "ELEVENTY_ENV=development npx eleventy --serve"
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site",
+    "clear": "rm -rf _site && rm -rf node_modules"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,6 @@
   },
   "homepage": "https://github.com/andij/drew-jones#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.1",
-    "less-watch-compiler": "^1.14.6"
+    "@11ty/eleventy": "^3.1.2"
   }
 }

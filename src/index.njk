@@ -1,7 +1,20 @@
 ---
+title: drew-jones.com
+tagline: Creative developer
+description: and systems thinker
 layout: base.njk
 ---
-    <header>
-      <h1>{{ title }}</h1>
-      <p>{{ tagline }}</p>
-    </header>
+
+<div class="logo">
+  <h1>{{ title }}</h1>
+  <p>{{ tagline }}</p>
+</div>
+
+<div class="links">
+  {% for link in links %}
+  <a class="card" href="{{ link.url }}">
+    <div class="icon"><i data-lucide="{{ link.icon }}" aria-hidden="true"></i></div>
+    <h2 class="title" title="{{ link.description }}">{{ link.title }}</h2>
+  </a>
+  {% endfor %}
+</div>
