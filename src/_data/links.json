@@ -16,5 +16,11 @@
     "url": "https://lucide.dev/icons/",
     "description": "Beautiful & consistent icons.",
     "icon": "circle-star"
+  },
+  {
+    "title": "Hipsum",
+    "url": "https://hipsum.co/?paras=5&type=hipster-centric",
+    "description": "Hipster ipsum generator.",
+    "icon": "case-sensitive"
   }
 ]
