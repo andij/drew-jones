@@ -5,16 +5,29 @@ description: and systems thinker
 layout: base.njk
 ---
 
-<div class="logo">
+<div class="drew">
   <h1>{{ title }}</h1>
   <p>{{ tagline }}</p>
 </div>
 
-<div class="links">
+<nav class="navigation">
   {% for link in links %}
-  <a class="card" href="{{ link.url }}">
-    <div class="icon"><i data-lucide="{{ link.icon }}" aria-hidden="true"></i></div>
-    <h2 class="title" title="{{ link.description }}">{{ link.title }}</h2>
-  </a>
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="{{ link.icon }}" aria-hidden="true"></i></div>
+      <a class="link" href="{{ link.url }}" title="{{ link.description }}">{{ link.title }}</a>
+    </div>
+    {% if link.submenu %}
+    <div class="sub">
+      {% for sublink in link.submenu.links %}
+        <a href="{{ sublink.url }}">{{ sublink.title }}</a>
+      {% endfor %}
+      {% for paragraph in link.submenu.paragraphs %}
+        <p>{{ paragraph }}</p>
+      {% endfor %}
+      <i class="x" data-lucide="x" aria-hidden="true"></i>
+    </div>
+    {% endif %}
+  </div>
   {% endfor %}
-</div>
+</nav>

@@ -1,9 +1,35 @@
 [
   {
+    "title": "Example",
+    "url": "#!",
+    "description": "Online JSON formatter and validator",
+    "icon": "braces",
+    "submenu": {
+      "links": [
+        { "title": "Formatter", "url": "https://jsonformatter.org/" },
+        { "title": "Validator", "url": "https://jsonformatter.org/json-validator" }
+      ],
+      "paragraphs": [
+        "Online JSON formatter and validator.",
+        "Make your JSON easy to read."
+      ]
+    }
+  },
+  {
     "title": "8080",
     "url": "https://localhost:8080/",
     "description": "Nucleus local development",
-    "icon": "binary"
+    "icon": "binary",
+    "submenu": {
+      "links": [
+        { "title": "Localhost", "url": "http://localhost:8080" },
+        { "title": "127.0.0.1", "url": "http://127.0.0.1:8080" }
+      ],
+      "paragraphs": [
+        "Local development server running on port 8080.",
+        "Used for testing and development purposes."
+      ]
+    }
   },
   {
     "title": "Kanban",
@@ -21,12 +47,29 @@
     "title": "Lucide",
     "url": "https://lucide.dev/icons/",
     "description": "Beautiful & consistent icons",
-    "icon": "circle-star"
+    "icon": "circle-star",
+    "submenu": {
+      "links": [
+        { "title": "Icons", "url": "https://lucide.dev/icons" },
+        { "title": "Guide", "url": "https://lucide.dev/guide" }
+      ],
+      "paragraphs": ["Beautiful & consistent icons.", "Made by the community."]
+    }
   },
   {
     "title": "Hipsum",
     "url": "https://hipsum.co/?paras=5&type=hipster-centric",
     "description": "Hipster ipsum generator",
-    "icon": "case-sensitive"
+    "icon": "case-sensitive",
+    "submenu": {
+      "links": [
+        { "title": "Generate", "url": "https://hipsum.co/" },
+        { "title": "About", "url": "https://hipsum.co/about" }
+      ],
+      "paragraphs": [
+        "Hipster Ipsum is an artisan filler text.",
+        "For your next project."
+      ]
+    }
   }
 ]

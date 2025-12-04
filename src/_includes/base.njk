@@ -29,6 +29,38 @@
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
       window.lucide.createIcons();
     }
+
+    // Handle aria-expanded for submenus
+    document.querySelectorAll('.link-wrapper').forEach(wrapper => {
+      const link = wrapper.querySelector('.card');
+      const submenu = wrapper.querySelector('.submenu');
+      
+      if (link && submenu) {
+        link.setAttribute('aria-haspopup', 'true');
+        link.setAttribute('aria-expanded', 'false');
+        
+        wrapper.addEventListener('mouseenter', () => {
+          link.setAttribute('aria-expanded', 'true');
+        });
+        
+        wrapper.addEventListener('mouseleave', () => {
+          link.setAttribute('aria-expanded', 'false');
+        });
+        
+        wrapper.addEventListener('focusin', () => {
+          link.setAttribute('aria-expanded', 'true');
+        });
+        
+        wrapper.addEventListener('focusout', () => {
+          // Check if focus is still within the wrapper
+          setTimeout(() => {
+            if (!wrapper.contains(document.activeElement)) {
+              link.setAttribute('aria-expanded', 'false');
+            }
+          }, 10);
+        });
+      }
+    });
   </script>
 
 </html>

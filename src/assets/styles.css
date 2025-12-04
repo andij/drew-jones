@@ -16,7 +16,6 @@
 }
 
 html {
-  line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   background-color: var(--color-background);
@@ -35,13 +34,18 @@ p {
   font-weight: normal;
 }
 
+a {
+  cursor: default;
+  text-decoration: none;
+}
+
 main {
   display: grid;
   place-items: center;
   min-height: 100dvh;
 }
 
-.logo {
+.drew {
   & h1,
   & p {
     font-weight: normal;
@@ -63,14 +67,17 @@ main {
   }
 }
 
-.links {
+.navigation {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   opacity: 0.5;
   display: flex;
-  padding: 1rem;
+  padding-inline-start: 1em;
+  padding-inline-end: 1em;
+  padding-block-start: 1em;
+  padding-block-end: 1em;
   box-sizing: border-box;
   transition: opacity 0.3s ease-in-out;
 
@@ -78,45 +85,93 @@ main {
     opacity: 1;
   }
 
-  & .card {
-    display: flex;
-    background-color: var(--color-background);
-    color: var(--color-secondary);
-    text-decoration: none;
+  & .menu {
+    position: relative;
     font-size: 0.8rem;
-    cursor: default;
-    padding-inline-start: 0.25em;
-    padding-inline-end: 0.5em;
-    padding-block-start: 0.25em;
-    padding-block-end: 0.25em;
-    border-radius: 50px;
 
-    &:hover {
-      background-color: var(--color-black-light);
-    }
-
-    & .icon {
-      width: 1em;
-      height: 1em;
-      color: var(--color-bright);
-      float: left;
-      margin-inline-end: 0.25em;
-      
-      /* Ensure lucide SVG icons scale to container */
-      & svg {
-        width: 100%;
-        height: 100%;
-        display: block;
+    &:focus-within {
+      & .sub {
+        display: grid;
       }
     }
 
-    & .title {
-      font-size: 1em;
+    & .main {
+      display: block;
+      position: relative;
+      padding-inline-start: 1.625em;
+      padding-inline-end: 0.625em;
+      padding-block-start: 0.25em;
+      padding-block-end: 0.25em;
+      border-radius: 1em;
+
+      &:hover {
+        background-color: var(--color-black-light);
+
+        & a {
+          color: var(--color-bright);
+        }
+      }
+
+      & .icon {
+        position: absolute;
+        top: 50%;
+        left: 0.375em;
+        transform: translateY(-53%);
+        width: 1em;
+        height: 1em;
+        color: var(--color-bright);
+
+        & svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+      }
+
+      & .link {
+        color: var(--color-secondary);
+      }
     }
 
-    & .description {
-      font-size: 0.75em;
-      color: var(--color-muted);
+    & .sub {
+      display: none;
+      position: absolute;
+      background-color: var(--color-black-light);
+      padding: 1em;
+      border-radius: 0.5em;
+      min-width: 12em;
+      gap: 0.5em;
+
+      & a {
+        color: var(--color-secondary);
+        max-width: fit-content;
+
+        &:hover {
+          color: var(--color-bright);
+        }
+      }
+
+      & p {
+        font-size: 0.8em;
+        color: var(--color-muted);
+      }
+
+      & .x {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        width: 1em;
+        height: 1em;
+        padding: 0.5em;
+        color: var(--color-muted);
+        cursor: pointer;
+
+        & svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+      }
     }
   }
 }
