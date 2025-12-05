@@ -1,21 +1,5 @@
 [
   {
-    "title": "Example",
-    "url": "#!",
-    "description": "Online JSON formatter and validator",
-    "icon": "braces",
-    "submenu": {
-      "links": [
-        { "title": "Formatter", "url": "https://jsonformatter.org/" },
-        { "title": "Validator", "url": "https://jsonformatter.org/json-validator" }
-      ],
-      "paragraphs": [
-        "Online JSON formatter and validator.",
-        "Make your JSON easy to read."
-      ]
-    }
-  },
-  {
     "title": "8080",
     "url": "https://localhost:8080/",
     "description": "Nucleus local development",
@@ -30,6 +14,12 @@
         "Used for testing and development purposes."
       ]
     }
+  },
+  {
+    "title": "Copilot",
+    "url": "https://m365.cloud.microsoft/chat",
+    "description": "Microsoft 365 Copilot",
+    "icon": "sparkles"
   },
   {
     "title": "Kanban",
