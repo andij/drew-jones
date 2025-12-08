@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <style>
+    html {
+      background-color: black;
+    }
+  </style>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="drew-jones.com - Creative developer and systems thinker">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>drew-jones.com - Creative developer</title>
+  </head>
+
+  <body>
+    <main>
+      
+<div class="drew">
+  <h1>drew-jones.com</h1>
+  <p>Creative developer</p>
+</div>
+
+<nav class="navigation">
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="binary" aria-hidden="true"></i></div>
+      <a class="link" href="https://localhost:8080/" title="Nucleus local development">8080</a>
+    </div>
+    
+    <div class="sub">
+      
+        <a href="http://localhost:8080">Localhost</a>
+      
+        <a href="http://127.0.0.1:8080">127.0.0.1</a>
+      
+      
+        <p>Local development server running on port 8080.</p>
+      
+        <p>Used for testing and development purposes.</p>
+      
+      <i class="x" data-lucide="x" aria-hidden="true"></i>
+    </div>
+    
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="sparkles" aria-hidden="true"></i></div>
+      <a class="link" href="https://m365.cloud.microsoft/chat" title="Microsoft 365 Copilot">Copilot</a>
+    </div>
+    
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="square-kanban" aria-hidden="true"></i></div>
+      <a class="link" href="https://github.com/orgs/centrica-engineering/projects/1/views/1" title="Nucleus GitHub project board">Kanban</a>
+    </div>
+    
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="square-dashed-kanban" aria-hidden="true"></i></div>
+      <a class="link" href="https://github.com/orgs/ConnectedHomes/projects/50/views/1" title="Interactive visual essays and experiments">Proposals</a>
+    </div>
+    
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="circle-star" aria-hidden="true"></i></div>
+      <a class="link" href="https://lucide.dev/icons/" title="Beautiful &amp; consistent icons">Lucide</a>
+    </div>
+    
+    <div class="sub">
+      
+        <a href="https://lucide.dev/icons">Icons</a>
+      
+        <a href="https://lucide.dev/guide">Guide</a>
+      
+      
+        <p>Beautiful &amp; consistent icons.</p>
+      
+        <p>Made by the community.</p>
+      
+      <i class="x" data-lucide="x" aria-hidden="true"></i>
+    </div>
+    
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="case-sensitive" aria-hidden="true"></i></div>
+      <a class="link" href="https://hipsum.co/?paras=5&amp;type=hipster-centric" title="Hipster ipsum generator">Hipsum</a>
+    </div>
+    
+    <div class="sub">
+      
+        <a href="https://hipsum.co/">Generate</a>
+      
+        <a href="https://hipsum.co/about">About</a>
+      
+      
+        <p>Hipster Ipsum is an artisan filler text.</p>
+      
+        <p>For your next project.</p>
+      
+      <i class="x" data-lucide="x" aria-hidden="true"></i>
+    </div>
+    
+  </div>
+  
+</nav>
+
+    </main>
+  </body>
+
+  <script>
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
+
+    // Handle aria-expanded for submenus
+    document.querySelectorAll('.link-wrapper').forEach(wrapper => {
+      const link = wrapper.querySelector('.card');
+      const submenu = wrapper.querySelector('.submenu');
+      
+      if (link && submenu) {
+        link.setAttribute('aria-haspopup', 'true');
+        link.setAttribute('aria-expanded', 'false');
+        
+        wrapper.addEventListener('mouseenter', () => {
+          link.setAttribute('aria-expanded', 'true');
+        });
+        
+        wrapper.addEventListener('mouseleave', () => {
+          link.setAttribute('aria-expanded', 'false');
+        });
+        
+        wrapper.addEventListener('focusin', () => {
+          link.setAttribute('aria-expanded', 'true');
+        });
+        
+        wrapper.addEventListener('focusout', () => {
+          // Check if focus is still within the wrapper
+          setTimeout(() => {
+            if (!wrapper.contains(document.activeElement)) {
+              link.setAttribute('aria-expanded', 'false');
+            }
+          }, 10);
+        });
+      }
+    });
+  </script>
+
+</html>
