@@ -25,7 +25,12 @@ jobs:
         run: npm ci
 
       - name: Build Eleventy site
-        run: npx @11ty/eleventy
+        run: |
+          if npm run | grep -q "^  build$"; then
+            npm run build
+          else
+            npx @11ty/eleventy
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
