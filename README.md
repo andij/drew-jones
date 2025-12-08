@@ -89,4 +89,4 @@ ISC
 
 ## Author
 
-Drew Jones - [@andij](https://github.com/andij)
+Drew Jones [@andij](https://github.com/andij)
