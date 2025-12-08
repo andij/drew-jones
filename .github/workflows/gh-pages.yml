@@ -26,7 +26,7 @@ jobs:
 
       - name: Build Eleventy site
         run: |
-          if npm run | grep -q "^  build$"; then
+          if jq -e '.scripts.build' package.json > /dev/null 2>&1; then
             npm run build
           else
             npx @11ty/eleventy
