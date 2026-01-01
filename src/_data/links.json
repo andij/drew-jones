@@ -30,6 +30,12 @@
     }
   },
   {
+    "title": "Vert file converter",
+    "url": "https://vert.tamarin-jazz.ts.net/",
+    "description": "Convert files to other formats",
+    "icon": "file-box"
+  },
+  {
     "title": "Copilot",
     "url": "https://m365.cloud.microsoft/chat",
     "description": "Microsoft 365 Copilot",
