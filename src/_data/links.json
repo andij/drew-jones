@@ -1,17 +1,31 @@
 [
   {
-    "title": "8080",
+    "title": "8080 Local",
     "url": "https://localhost:8080/",
     "description": "Nucleus local development",
     "icon": "binary",
     "submenu": {
       "links": [
-        { "title": "Localhost", "url": "http://localhost:8080" },
-        { "title": "127.0.0.1", "url": "http://127.0.0.1:8080" }
+        { "title": "8000 Storybook", "url": "http://localhost:8000" },
+        { "title": "8081 Drew Jones", "url": "http://localhost:8081" }
       ],
       "paragraphs": [
         "Local development server running on port 8080.",
         "Used for testing and development purposes."
+      ]
+    }
+  },
+  {
+    "title": "Github",
+    "url": "https://github.com/andij?tab=repositories",
+    "description": "My GitHub repositories",
+    "icon": "github",
+    "submenu": {
+      "links": [
+        { "title": "Github Awesome", "url": "https://githubawesome.com/" }
+      ],
+      "paragraphs": [
+        "Discover awesome GitHub repositories daily."
       ]
     }
   },
@@ -32,6 +46,12 @@
     "url": "https://github.com/orgs/ConnectedHomes/projects/50/views/1",
     "description": "Interactive visual essays and experiments",
     "icon": "square-dashed-kanban"
+  },
+  {
+    "title": "Brand",
+    "url": "https://studio.corebook.io/#!/coreboard",
+    "description": "Corebook brand guidelines",
+    "icon": "palette"
   },
   {
     "title": "Lucide",
