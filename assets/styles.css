@@ -16,7 +16,6 @@
 }
 
 html {
-  -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   background-color: var(--color-background);
   color: var(--color-foreground);
@@ -28,7 +27,6 @@ body {
 }
 
 h1,
-h2,
 p {
   margin-block: 0;
   font-weight: normal;
@@ -48,11 +46,9 @@ main {
 .drew {
   & h1,
   & p {
-    font-weight: normal;
     font-family: "Petrona", serif;
     line-height: 1;
     color: var(--color-primary);
-    margin: 0;
     text-transform: lowercase;
   }
 
@@ -74,10 +70,7 @@ main {
   left: 0;
   opacity: 0.5;
   display: flex;
-  padding-inline-start: 1em;
-  padding-inline-end: 1em;
-  padding-block-start: 1em;
-  padding-block-end: 1em;
+  padding: 1em;
   box-sizing: border-box;
   transition: opacity 0.3s ease-in-out;
 
@@ -88,6 +81,10 @@ main {
   & .menu {
     position: relative;
     font-size: 0.8rem;
+
+    & a {
+      color: var(--color-secondary);
+    }
 
     &:focus-within {
       & .sub {
@@ -120,17 +117,8 @@ main {
         width: 1em;
         height: 1em;
         color: var(--color-bright);
-
-        & svg {
-          width: 100%;
-          height: 100%;
-          display: block;
-        }
       }
 
-      & .link {
-        color: var(--color-secondary);
-      }
     }
 
     & .sub {
@@ -143,7 +131,6 @@ main {
       gap: 0.5em;
 
       & a {
-        color: var(--color-secondary);
         max-width: fit-content;
 
         &:hover {
@@ -165,12 +152,15 @@ main {
         padding: 0.5em;
         color: var(--color-muted);
         cursor: pointer;
+      }
+    }
 
-        & svg {
-          width: 100%;
-          height: 100%;
-          display: block;
-        }
+    & .main,
+    & .sub {
+      & svg {
+        width: 100%;
+        height: 100%;
+        display: block;
       }
     }
   }
