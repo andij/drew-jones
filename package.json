@@ -2,7 +2,6 @@
   "name": "drew-jones",
   "version": "2.0.0",
   "description": "drew-jones.com",
-  "main": ".eleventy.js",
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",

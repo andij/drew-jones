@@ -1,7 +1,6 @@
 :root {
   --color-red: #8b0100;
   --color-pink: #ffb3b3;
-  --color-peach: #ffd4b3;
   --color-yellow: #ffedb3;
   --color-mint: #b3e5d4;
   --color-black: #010b0c;
@@ -10,7 +9,6 @@
   --color-primary: var(--color-red);
   --color-secondary: var(--color-pink);
   --color-background: var(--color-black);
-  --color-foreground: var(--color-peach);
   --color-bright: var(--color-yellow);
   --color-muted: var(--color-mint);
 }
@@ -18,7 +16,6 @@
 html {
   -webkit-text-size-adjust: 100%;
   background-color: var(--color-background);
-  color: var(--color-foreground);
 }
 
 body {
@@ -46,11 +43,9 @@ main {
 .drew {
   & h1,
   & p {
-    font-weight: normal;
     font-family: "Petrona", serif;
     line-height: 1;
     color: var(--color-primary);
-    margin: 0;
     text-transform: lowercase;
   }
 
@@ -72,10 +67,7 @@ main {
   left: 0;
   opacity: 0.5;
   display: flex;
-  padding-inline-start: 1em;
-  padding-inline-end: 1em;
-  padding-block-start: 1em;
-  padding-block-end: 1em;
+  padding: 1em;
   box-sizing: border-box;
   transition: opacity 0.3s ease-in-out;
 
@@ -86,6 +78,10 @@ main {
   & .menu {
     position: relative;
     font-size: 0.8rem;
+
+    & a {
+      color: var(--color-secondary);
+    }
 
     &:focus-within {
       & .sub {
@@ -120,9 +116,6 @@ main {
         color: var(--color-bright);
       }
 
-      & .link {
-        color: var(--color-secondary);
-      }
     }
 
     & .sub {
@@ -135,7 +128,6 @@ main {
       gap: 0.5em;
 
       & a {
-        color: var(--color-secondary);
         max-width: fit-content;
 
         &:hover {
