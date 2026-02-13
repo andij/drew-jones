@@ -62,7 +62,6 @@ drew-jones/
 │   │   └── base.njk       # Base layout template
 │   ├── assets/
 │   │   └── styles.css     # Styles
-│   └── img/               # Images
 ├── _site/                 # Generated site (not tracked)
 ├── package.json
 └── README.md
