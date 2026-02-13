@@ -1,6 +1,7 @@
 :root {
   --color-red: #8b0100;
   --color-pink: #ffb3b3;
+  --color-peach: #ffd4b3;
   --color-yellow: #ffedb3;
   --color-mint: #b3e5d4;
   --color-black: #010b0c;
@@ -9,6 +10,7 @@
   --color-primary: var(--color-red);
   --color-secondary: var(--color-pink);
   --color-background: var(--color-black);
+  --color-foreground: var(--color-peach);
   --color-bright: var(--color-yellow);
   --color-muted: var(--color-mint);
 }
@@ -16,6 +18,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   background-color: var(--color-background);
+  color: var(--color-foreground);
 }
 
 body {
