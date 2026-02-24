@@ -74,18 +74,15 @@
   },
   {
     "title": "Hipsum",
-    "url": "https://hipsum.co/?paras=5&type=hipster-centric",
+    "url": "file:///Users/drew/Projects/hipsum/hipsteripsum.html",
     "description": "Hipster ipsum generator",
     "icon": "case-sensitive",
     "submenu": {
       "links": [
-        { "title": "Generate", "url": "https://hipsum.co/" },
-        { "title": "About", "url": "https://hipsum.co/about" },
         { "title": "Mermaid", "url": "https://mermaid.ai/play#pako:eNqVU0tT2zAQ_is7PrWHwJRjDu00CQOBJM203DAHVVrH6ti7qiURMgz_vSuJmEzbCyc_9L32oedKs8FqWk0mk5o0U2N305oAQos9TmFAE59qyqdNx3vdqiHA3SJBAGb3dbXAxhKCIiPg_CpUaA-O5emth70NLeCTQx3QQIdqIEs7Dx809z1SAKZMcQM79qr7WFcPr_IwmXyGuZgsjQBtczgCTdQBAqo--_7iOBAeoOEBNHed-smDCpZpVJpnpUtRmo_nWJL9oxgYLAXcZUg6FbwX3d4xSYpR8zJrXonm9pTucJAcfWZ-PZ_JTx-k3pF2lWnXr1GkKW8tGTHXGbMUzJ2wi3mHEkcKjC4lvICeKbQesFPOo_kycpeZeyPcHzIrfFfDbzL39rmuvuOjxX2GpQJOM74U7K1gYcveBvuIYHunpJREX4n1LNrOQIMqRIkg7WTYRN1h9GewYB1TjDwhKceotBdpjoqII2lMBaaskWw4nI3psuOGj17nQLhT2T3ZrtMuMhAHUMbAm-PIX2XcJu-sG1CXANtWeYRPpZ8jdl2w5WOTP77dp7b0LH6r_29EDrjmAY9DlxvxO1q5Q2VVTlDLgGVFgZu_FqysasFWL38AQvMvdQ" }
       ],
       "paragraphs": [
-        "Hipster Ipsum is an artisan filler text.",
-        "For your next project."
+        "Hipster Ipsum is an artisan filler text."
       ]
     }
   }
