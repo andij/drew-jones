@@ -74,7 +74,7 @@
   },
   {
     "title": "Hipsum",
-    "url": "file:///Users/drew/Projects/hipsum/hipsteripsum.html",
+    "url": "/hipsum",
     "description": "Hipster ipsum generator",
     "icon": "case-sensitive",
     "submenu": {
