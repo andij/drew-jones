@@ -30,6 +30,12 @@
     }
   },
   {
+    "title": "Service Now",
+    "url": "https://cnprod.service-now.com/",
+    "description": "Service Now portal",
+    "icon": "service-now"
+  },
+  {
     "title": "Vert file converter",
     "url": "https://vert.tamarin-jazz.ts.net/",
     "description": "Convert files to other formats",
@@ -71,6 +77,12 @@
       ],
       "paragraphs": ["Beautiful & consistent icons.", "Made by the community."]
     }
+  },
+  {
+    "title": "Learn Chess",
+    "url": "/chess/",
+    "description": "Learn chess pieces and moves",
+    "icon": "crown"
   },
   {
     "title": "Hipsum",

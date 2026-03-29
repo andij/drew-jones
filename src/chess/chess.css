@@ -1,0 +1,745 @@
+/* ============================================
+   Chess Learning Game — Styles
+   Target: 5-year-old on iPad, offline, touch
+   ============================================ */
+
+:root {
+  --chess-bg: #1a1a2e;
+  --chess-fg: #f5f5f5;
+  --chess-accent: #e94560;
+  --chess-accent2: #0f3460;
+  --chess-success: #4ecdc4;
+  --chess-warning: #ffe66d;
+  --chess-light-sq: #f0d9b5;
+  --chess-dark-sq: #b58863;
+  --chess-highlight: rgba(255, 230, 109, 0.6);
+  --chess-valid: rgba(78, 205, 196, 0.5);
+  --chess-selected: rgba(233, 69, 96, 0.4);
+  --chess-radius: 16px;
+  --chess-font: -apple-system, 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--chess-bg);
+  color: var(--chess-fg);
+  font-family: var(--chess-font);
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#app {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ---- Screens ---- */
+
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ---- Home Screen ---- */
+
+.game-title {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 800;
+  margin: 24px 0 8px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--chess-accent), var(--chess-warning));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.game-subtitle {
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  opacity: 0.7;
+  margin: 0 0 32px;
+  text-align: center;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 16px;
+}
+
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px 20px;
+  border: none;
+  border-radius: var(--chess-radius);
+  background: linear-gradient(135deg, var(--chess-accent2), #16213e);
+  color: var(--chess-fg);
+  font-family: var(--chess-font);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  min-height: 100px;
+}
+
+.mode-card:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.mode-icon {
+  font-size: 2.5rem;
+}
+
+.mode-label {
+  font-size: clamp(1rem, 4vw, 1.3rem);
+}
+
+/* ---- Screen Header ---- */
+
+.screen-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.screen-title {
+  flex: 1;
+  text-align: center;
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  margin: 0;
+}
+
+.back-btn, .reset-btn {
+  background: var(--chess-accent2);
+  border: none;
+  border-radius: 12px;
+  color: var(--chess-fg);
+  font-family: var(--chess-font);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.back-btn:active, .reset-btn:active {
+  transform: scale(0.95);
+}
+
+/* ---- Board ---- */
+
+.board-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  max-width: 600px;
+  min-height: 0;
+}
+
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  touch-action: none;
+}
+
+.chess-square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+}
+
+.chess-square.light {
+  background: var(--chess-light-sq);
+}
+
+.chess-square.dark {
+  background: var(--chess-dark-sq);
+}
+
+.chess-square.selected {
+  background: var(--chess-selected);
+}
+
+.chess-square.valid-move::after {
+  content: '';
+  position: absolute;
+  width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  background: var(--chess-valid);
+  pointer-events: none;
+}
+
+.chess-square.valid-capture {
+  box-shadow: inset 0 0 0 4px var(--chess-valid);
+}
+
+.chess-square.highlight {
+  background: var(--chess-highlight);
+}
+
+.chess-square.target-star::after {
+  content: '⭐';
+  position: absolute;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  pointer-events: none;
+}
+
+.chess-piece {
+  width: 85%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.5rem, 7vw, 3rem);
+  cursor: grab;
+  z-index: 1;
+  transition: transform 0.1s ease;
+  line-height: 1;
+}
+
+.piece-white {
+  color: var(--chess-fg);
+}
+
+.piece-black {
+  color: var(--chess-bg);
+}
+
+.chess-piece.dragging {
+  z-index: 100;
+  transform: scale(1.2);
+  cursor: grabbing;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+  transition: none;
+}
+
+.chess-piece.wobble {
+  animation: wobble 0.4s ease;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* ---- File/Rank Labels ---- */
+
+.board-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 4px;
+  width: min(calc(100vw - 32px), calc(100dvh - 180px), 560px);
+  aspect-ratio: 1;
+}
+
+.rank-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-right: 4px;
+}
+
+.file-labels {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 4px;
+  grid-column: 2;
+}
+
+.board-label {
+  font-size: clamp(0.6rem, 2.5vw, 0.9rem);
+  font-weight: 700;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Hint Text ---- */
+
+.hint-text, .puzzle-instruction {
+  font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+  text-align: center;
+  opacity: 0.8;
+  margin: 8px 0;
+  min-height: 2em;
+  flex-shrink: 0;
+}
+
+.puzzle-instruction {
+  font-weight: 700;
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  color: var(--chess-warning);
+}
+
+/* ---- Meet the Pieces ---- */
+
+#meet-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  gap: 16px;
+  min-height: 0;
+}
+
+.meet-piece-display {
+  font-size: clamp(4rem, 20vw, 8rem);
+  line-height: 1;
+}
+
+.meet-piece-name {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  font-weight: 800;
+  color: var(--chess-warning);
+}
+
+.meet-piece-desc {
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  opacity: 0.85;
+  line-height: 1.5;
+  padding: 0 16px;
+}
+
+.meet-mini-board {
+  width: min(280px, 70vw);
+  aspect-ratio: 1;
+  margin: 8px auto;
+}
+
+.meet-mini-board .chess-board {
+  width: 100%;
+  height: 100%;
+}
+
+.meet-nav, .puzzle-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 0;
+  flex-shrink: 0;
+}
+
+.nav-arrow {
+  background: var(--chess-accent2);
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  color: var(--chess-fg);
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-arrow:active {
+  transform: scale(0.9);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.3;
+}
+
+#meet-counter, #puzzle-counter {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* ---- Celebration ---- */
+
+.celebration {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.celebration.hidden {
+  display: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  animation: confetti-fall 1.5s ease forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(80vh) rotate(720deg) scale(0.5);
+  }
+}
+
+.celebration-text {
+  font-size: clamp(2rem, 10vw, 4rem);
+  font-weight: 900;
+  color: var(--chess-warning);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  animation: celebrate-pop 0.5s ease;
+  z-index: 201;
+}
+
+@keyframes celebrate-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ---- Floating piece while dragging ---- */
+
+.floating-piece {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  font-size: clamp(2rem, 9vw, 4rem);
+  line-height: 1;
+  transform: translate(-50%, -80%);
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+}
+
+/* ---- Captured flash ---- */
+
+@keyframes capture-flash {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.capture-anim {
+  animation: capture-flash 0.3s ease forwards;
+}
+
+/* ---- Turn Indicator ---- */
+
+.turn-indicator {
+  font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.turn-indicator.your-turn {
+  background: var(--chess-success);
+  color: #1a1a2e;
+}
+
+.turn-indicator.computer-turn {
+  background: var(--chess-accent2);
+  color: var(--chess-fg);
+}
+
+.turn-indicator.game-over {
+  background: var(--chess-warning);
+  color: #1a1a2e;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+}
+
+/* ---- Captured Pieces ---- */
+
+.captured-pieces {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 600px;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+.captured-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  min-height: 1.6em;
+  align-items: center;
+}
+
+.captured-label {
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  opacity: 0.6;
+  margin-right: 6px;
+}
+
+/* ---- Computer thinking animation ---- */
+
+.chess-board.thinking {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.thinking-dots::after {
+  content: '';
+  animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+/* ---- Last move highlight ---- */
+
+.chess-square.last-move {
+  background: rgba(255, 230, 109, 0.35);
+}
+
+/* ---- Flipped board (when playing as black) ---- */
+
+.board-flipped .chess-board {
+  transform: rotate(180deg);
+}
+
+.board-flipped .chess-board .chess-piece,
+.board-flipped .chess-board .valid-move::after,
+.board-flipped .chess-board .target-star::after {
+  transform: rotate(180deg);
+}
+
+/* ============================================
+   Landscape layout (iPad and similar)
+   ============================================ */
+
+@media (orientation: landscape) and (max-height: 820px) {
+
+  .screen {
+    padding: 8px 16px;
+  }
+
+  /* ---- Home screen: 2×2 grid ---- */
+
+  .game-title {
+    margin: 8px 0 4px;
+  }
+
+  .game-subtitle {
+    margin: 0 0 12px;
+  }
+
+  .mode-grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 600px;
+    gap: 12px;
+  }
+
+  .mode-card {
+    padding: 16px 12px;
+    min-height: 70px;
+    gap: 6px;
+  }
+
+  .mode-icon {
+    font-size: 1.8rem;
+  }
+
+  /* ---- Screen header: compact ---- */
+
+  .screen-header {
+    margin-bottom: 6px;
+    max-width: none;
+  }
+
+  /* ---- Board sizing in landscape ---- */
+
+  .board-wrapper {
+    width: min(calc(100vw - 32px), calc(100dvh - 100px), 560px);
+  }
+
+  /* ---- Game screens: board + info side by side ---- */
+
+  #freeplay-screen,
+  #computer-screen {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #freeplay-screen > .screen-header,
+  #computer-screen > .screen-header {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  #freeplay-screen > .board-container,
+  #computer-screen > .board-container {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+  }
+
+  #computer-screen > .turn-indicator {
+    width: 100%;
+    order: -1;
+  }
+
+  #freeplay-screen > .hint-text,
+  #computer-screen > .hint-text {
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+    align-self: center;
+    text-align: left;
+  }
+
+  #computer-screen > .captured-pieces {
+    flex: 1;
+    min-width: 140px;
+    max-width: 220px;
+    align-self: center;
+  }
+
+  /* ---- Meet the pieces: horizontal layout ---- */
+
+  #meet-screen {
+    overflow-y: hidden;
+  }
+
+  #meet-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: none;
+    gap: 8px;
+  }
+
+  .meet-piece-display {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+
+  .meet-piece-name {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+  }
+
+  .meet-piece-desc {
+    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+    max-width: 30ch;
+  }
+
+  .meet-mini-board {
+    width: min(240px, calc(100dvh - 140px));
+  }
+
+  /* ---- Puzzle screen: landscape ---- */
+
+  #puzzle-screen {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #puzzle-screen > .screen-header {
+    width: 100%;
+  }
+
+  #puzzle-screen > .puzzle-instruction {
+    flex: 1;
+    min-width: 140px;
+    max-width: 220px;
+    align-self: center;
+  }
+
+  /* ---- Nav arrows: smaller in landscape ---- */
+
+  .nav-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .meet-nav, .puzzle-nav {
+    padding: 6px 0;
+    gap: 16px;
+  }
+}
+
+/* Extra-wide landscape (e.g. iPad Pro landscape) */
+@media (orientation: landscape) and (min-width: 1024px) {
+
+  .mode-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+
+  .mode-card {
+    flex-direction: row;
+    gap: 10px;
+    padding: 20px 16px;
+    justify-content: flex-start;
+  }
+}
