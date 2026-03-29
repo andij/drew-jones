@@ -999,7 +999,7 @@
     computerBoardEl.classList.add('thinking');
 
     // Phase 1: Highlight the piece the computer is about to move
-    var thinkDelay = 800 + Math.floor(Math.random() * 600);
+    var thinkDelay = 1600 + Math.floor(Math.random() * 1200);
 
     setTimeout(function() {
       if (gameOver) return;
@@ -1060,8 +1060,8 @@
           computerState.turn = humanColor();
           updateTurnIndicator(computerState.turn);
           $('#computer-hint').textContent = 'Your turn! Tap a piece to move.';
-        }, 600);
-      }, 700);
+        }, 1200);
+      }, 1400);
     }, thinkDelay);
   }
 
