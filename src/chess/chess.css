@@ -567,3 +567,179 @@ html, body {
 .board-flipped .chess-board .target-star::after {
   transform: rotate(180deg);
 }
+
+/* ============================================
+   Landscape layout (iPad and similar)
+   ============================================ */
+
+@media (orientation: landscape) and (max-height: 820px) {
+
+  .screen {
+    padding: 8px 16px;
+  }
+
+  /* ---- Home screen: 2×2 grid ---- */
+
+  .game-title {
+    margin: 8px 0 4px;
+  }
+
+  .game-subtitle {
+    margin: 0 0 12px;
+  }
+
+  .mode-grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 600px;
+    gap: 12px;
+  }
+
+  .mode-card {
+    padding: 16px 12px;
+    min-height: 70px;
+    gap: 6px;
+  }
+
+  .mode-icon {
+    font-size: 1.8rem;
+  }
+
+  /* ---- Screen header: compact ---- */
+
+  .screen-header {
+    margin-bottom: 6px;
+    max-width: none;
+  }
+
+  /* ---- Board sizing in landscape ---- */
+
+  .board-wrapper {
+    width: min(calc(100vw - 32px), calc(100dvh - 100px), 560px);
+  }
+
+  /* ---- Game screens: board + info side by side ---- */
+
+  #freeplay-screen,
+  #computer-screen {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #freeplay-screen > .screen-header,
+  #computer-screen > .screen-header {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  #freeplay-screen > .board-container,
+  #computer-screen > .board-container {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+  }
+
+  #computer-screen > .turn-indicator {
+    width: 100%;
+    order: -1;
+  }
+
+  #freeplay-screen > .hint-text,
+  #computer-screen > .hint-text {
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+    align-self: center;
+    text-align: left;
+  }
+
+  #computer-screen > .captured-pieces {
+    flex: 1;
+    min-width: 140px;
+    max-width: 220px;
+    align-self: center;
+  }
+
+  /* ---- Meet the pieces: horizontal layout ---- */
+
+  #meet-screen {
+    overflow-y: hidden;
+  }
+
+  #meet-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: none;
+    gap: 8px;
+  }
+
+  .meet-piece-display {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+
+  .meet-piece-name {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+  }
+
+  .meet-piece-desc {
+    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+    max-width: 30ch;
+  }
+
+  .meet-mini-board {
+    width: min(240px, calc(100dvh - 140px));
+  }
+
+  /* ---- Puzzle screen: landscape ---- */
+
+  #puzzle-screen {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #puzzle-screen > .screen-header {
+    width: 100%;
+  }
+
+  #puzzle-screen > .puzzle-instruction {
+    flex: 1;
+    min-width: 140px;
+    max-width: 220px;
+    align-self: center;
+  }
+
+  /* ---- Nav arrows: smaller in landscape ---- */
+
+  .nav-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .meet-nav, .puzzle-nav {
+    padding: 6px 0;
+    gap: 16px;
+  }
+}
+
+/* Extra-wide landscape (e.g. iPad Pro landscape) */
+@media (orientation: landscape) and (min-width: 1024px) {
+
+  .mode-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+
+  .mode-card {
+    flex-direction: row;
+    gap: 10px;
+    padding: 20px 16px;
+    justify-content: flex-start;
+  }
+}

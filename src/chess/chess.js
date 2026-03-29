@@ -992,61 +992,77 @@
     var move = computerChooseMove(board);
 
     if (!move) {
-      // No legal moves — stalemate/draw
       endGame('draw');
       return;
     }
 
-    // Add a small delay so it feels like "thinking"
-    var delay = 600 + Math.floor(Math.random() * 800);
-
     computerBoardEl.classList.add('thinking');
+
+    // Phase 1: Highlight the piece the computer is about to move
+    var thinkDelay = 800 + Math.floor(Math.random() * 600);
 
     setTimeout(function() {
       if (gameOver) return;
 
-      var captured = board[move.toR][move.toC];
-      board[move.toR][move.toC] = board[move.fromR][move.fromC];
-      board[move.fromR][move.fromC] = null;
-
-      // Auto-promote pawns to Queen
-      if (pieceType(board[move.toR][move.toC]) === 'P') {
-        var promoRow = computerColor() === 'w' ? 0 : 7;
-        if (move.toR === promoRow) {
-          board[move.toR][move.toC] = computerColor() + 'Q';
-        }
-      }
-
-      if (captured) {
-        computerState.capturedByComputer.push(captured);
-        soundCapture();
-      } else {
-        soundMove();
-      }
-
-      updateBoardDOM(computerBoardEl, board);
       clearHighlights(computerBoardEl);
-      showLastMove(computerBoardEl, move.fromR, move.fromC, move.toR, move.toC);
-      renderCaptured(computerState.capturedByHuman, computerState.capturedByComputer);
-      computerBoardEl.classList.remove('thinking');
+      var srcSq = getSquare(computerBoardEl, move.fromR, move.fromC);
+      if (srcSq) srcSq.classList.add('selected');
 
-      // Check if human King is gone
-      if (!findKing(board, humanColor())) {
-        endGame('computer');
-        return;
-      }
+      // Phase 2: Highlight the destination square
+      setTimeout(function() {
+        if (gameOver) return;
 
-      // Check if human has any moves
-      var humanMoves = getAllMoves(board, humanColor());
-      if (humanMoves.length === 0) {
-        endGame('draw');
-        return;
-      }
+        var destSq = getSquare(computerBoardEl, move.toR, move.toC);
+        if (destSq) destSq.classList.add('highlight');
 
-      computerState.turn = humanColor();
-      updateTurnIndicator(computerState.turn);
-      $('#computer-hint').textContent = 'Your turn! Tap a piece to move.';
-    }, delay);
+        // Phase 3: Execute the move
+        setTimeout(function() {
+          if (gameOver) return;
+
+          var captured = board[move.toR][move.toC];
+          board[move.toR][move.toC] = board[move.fromR][move.fromC];
+          board[move.fromR][move.fromC] = null;
+
+          // Auto-promote pawns to Queen
+          if (pieceType(board[move.toR][move.toC]) === 'P') {
+            var promoRow = computerColor() === 'w' ? 0 : 7;
+            if (move.toR === promoRow) {
+              board[move.toR][move.toC] = computerColor() + 'Q';
+            }
+          }
+
+          if (captured) {
+            computerState.capturedByComputer.push(captured);
+            soundCapture();
+          } else {
+            soundMove();
+          }
+
+          updateBoardDOM(computerBoardEl, board);
+          clearHighlights(computerBoardEl);
+          showLastMove(computerBoardEl, move.fromR, move.fromC, move.toR, move.toC);
+          renderCaptured(computerState.capturedByHuman, computerState.capturedByComputer);
+          computerBoardEl.classList.remove('thinking');
+
+          // Check if human King is gone
+          if (!findKing(board, humanColor())) {
+            endGame('computer');
+            return;
+          }
+
+          // Check if human has any moves
+          var humanMoves = getAllMoves(board, humanColor());
+          if (humanMoves.length === 0) {
+            endGame('draw');
+            return;
+          }
+
+          computerState.turn = humanColor();
+          updateTurnIndicator(computerState.turn);
+          $('#computer-hint').textContent = 'Your turn! Tap a piece to move.';
+        }, 600);
+      }, 700);
+    }, thinkDelay);
   }
 
   // ---- Init a computer game ----
@@ -1059,7 +1075,6 @@
     var hColor = humanColor();
     var cColor = computerColor();
     var hName = hColor === 'w' ? 'White' : 'Black';
-    $('#computer-title').textContent = 'You are ' + hName + '!';
 
     computerBoardEl = createBoardDOM(container, board, { id: 'computer', flipped: hColor === 'b' });
 
