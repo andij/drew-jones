@@ -5,11 +5,6 @@ description: and systems thinker
 layout: base.njk
 ---
 
-<div class="drew">
-  <h1>{{ title }}</h1>
-  <p>{{ tagline }}</p>
-</div>
-
 <nav class="navigation">
   {% for link in links %}
   <div class="menu">
@@ -31,6 +26,7 @@ layout: base.njk
   </div>
   {% endfor %}
 </nav>
+
 <div id="content"></div>
 
 <script>
@@ -49,13 +45,13 @@ layout: base.njk
     ];
 
     var hipster = [
-      '+1', '8-bit', "90's", 'actually', 'aesthetic', 'american apparel', 'street art',
+      '+1', '8-bit', "90's", 'actually', 'aesthetic', 'apparel', 'street art',
       'artisan', 'asymmetrical', 'Austin', 'authentic', 'axe', 'bahn mi', 'banjo',
       'banksy', 'beard', 'before they sold out', 'bespoke', 'bicycle', 'biodiesel',
-      'bitters', 'blog', 'Blue Bottle', 'Brooklyn', 'brunch', 'butcher', 'cardigan',
+      'bitters', 'blog', 'blue bottle', 'London', 'brunch', 'butcher', 'cardigan',
       'carles', 'chia', 'chic', 'chillwave', 'church-key', 'cleanse', 'cold-pressed',
       'craft beer', 'cray', 'cred', 'cronut', 'deep v', 'denim', 'direct trade',
-      'disrupt', 'distillery', 'DIY', 'dreamcatcher', 'Echo Park', 'ennui', 'ethical',
+      'disrupt', 'distillery', 'do it', 'dreamcatcher', 'Echo Park', 'ennui', 'ethical',
       'Etsy', 'fanny pack', 'farm-to-table', 'fashion', 'fixie', 'flannel',
       'flexitarian', 'food truck', 'foodie', 'forage', 'freegan', 'gastropub',
       'gentrify', 'gluten-free', 'godard williamsburg', 'hashtag', 'health',
@@ -65,14 +61,14 @@ layout: base.njk
       'marfa', 'master', 'meditation', 'meggings', 'meh', 'migas', 'mixtape', 'mlkshk',
       'moon', 'mumblecore', 'mustache', 'narwhal', 'neutra', 'next level', 'noise-rock',
       'normcore', 'occupy', 'Odd Future', 'organic', 'PBR', 'PBR&B', 'photo booth',
-      'pickled', 'Pinterest', 'Pitchfork', 'plaid', 'polaroid', 'pop-up', 'pork belly',
+      'pickled', 'Pinterest', 'pitchfork', 'plaid', 'polaroid', 'pop-up', 'pork belly',
       'Portland', 'post-ironic', 'pour-over', 'pug', 'put a bird on it', 'quinoa',
-      'raw denim', 'retro', 'roof party', 'salvia', 'San Francisco', 'scenester',
+      'raw denim', 'retro', 'roof party', 'salvia', 'Brick Lane', 'scenester',
       'schlitz', 'seitan', 'selfies', 'selvage', 'semiotics', 'shabby', 'shoreditch',
       'shorts', 'skateboard', 'slow-carb', 'specs', 'stumptown', 'sustainable', 'swag',
       'tattoo', 'tattooed', 'taxidermy', 'Thundercats', 'tilde', 'tofu', 'Toms',
       'tote bag', 'tousled', 'trust fund', 'truffaut', 'try-hard', 'tumblr', 'twee',
-      'typewriter', 'umami', 'vegan', 'VHS', 'Vice', 'vim', 'vinegar', 'vinyl', 'viral',
+      'typewriter', 'umami', 'vegan', 'vice', 'vim', 'vinegar', 'vinyl', 'viral',
       'wayfarers', 'Wes Anderson', 'wire-rimmed glasses', 'wolf', 'xoxo', 'yolo',
       "you probably haven't heard of them", 'yr'
     ];
@@ -90,9 +86,9 @@ layout: base.njk
         for (var p = 0; p < para; p++) {
           if (html) { ret += '<p>'; }
 
-          var numSen = Math.round(Math.random() * (10 - 4) + 4);
+          var numSen = Math.floor(Math.random() * (4 - 2 + 1)) + 2; // 2-4 sentences
           for (var s = 0; s < numSen; s++) {
-            var sLen = Math.round(Math.random() * (20 - 15) + 15);
+            var sLen = Math.floor(Math.random() * (10 - 6 + 1)) + 6;  // 6-10 words
             for (var w = 0; w < sLen; w++, wCount++) {
               var i = 0;
               var word = '';

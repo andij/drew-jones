@@ -28,8 +28,11 @@ body {
 
 h1,
 p {
-  margin-block: 0;
   font-weight: normal;
+}
+
+p {
+  max-width: 70ch;
 }
 
 a {
@@ -39,6 +42,7 @@ a {
 
 main {
   display: grid;
+  grid-template-rows: auto 1fr;
   place-items: center;
   min-height: 100dvh;
 }
@@ -48,6 +52,7 @@ main {
   & p {
     font-family: "Petrona", serif;
     line-height: 1;
+    margin-block: 0;
     color: var(--color-primary);
     text-transform: lowercase;
   }
@@ -64,10 +69,9 @@ main {
 }
 
 .navigation {
-  position: fixed;
+  justify-self: start;
+  position: sticky;
   top: 0;
-  right: 0;
-  left: 0;
   opacity: 0.5;
   display: flex;
   padding: 1em;
