@@ -1,0 +1,67 @@
+---
+title: Learn Chess!
+tagline: A fun way to learn chess
+layout: chess-base.njk
+permalink: chess/index.html
+---
+
+<div id="app">
+  <div id="home-screen" class="screen active">
+    <h1 class="game-title">Learn Chess!</h1>
+    <p class="game-subtitle">Tap a button to start</p>
+    <div class="mode-grid">
+      <button class="mode-card" data-mode="meet">
+        <span class="mode-icon">👋</span>
+        <span class="mode-label">Meet the Pieces</span>
+      </button>
+      <button class="mode-card" data-mode="freeplay">
+        <span class="mode-icon">♟️</span>
+        <span class="mode-label">Try It!</span>
+      </button>
+      <button class="mode-card" data-mode="puzzle">
+        <span class="mode-icon">⭐</span>
+        <span class="mode-label">Puzzle Time</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="meet-screen" class="screen">
+    <div class="screen-header">
+      <button class="back-btn" data-goto="home">← Back</button>
+      <h2 class="screen-title">Meet the Pieces</h2>
+    </div>
+    <div id="meet-content"></div>
+    <div class="meet-nav">
+      <button class="nav-arrow" id="meet-prev">◀</button>
+      <span id="meet-counter"></span>
+      <button class="nav-arrow" id="meet-next">▶</button>
+    </div>
+  </div>
+
+  <div id="freeplay-screen" class="screen">
+    <div class="screen-header">
+      <button class="back-btn" data-goto="home">← Back</button>
+      <h2 class="screen-title">Try It!</h2>
+      <button class="reset-btn" id="freeplay-reset">↺ Reset</button>
+    </div>
+    <div id="freeplay-board-container" class="board-container"></div>
+    <p class="hint-text" id="freeplay-hint">Tap a piece to see where it can move, then drag it!</p>
+  </div>
+
+  <div id="puzzle-screen" class="screen">
+    <div class="screen-header">
+      <button class="back-btn" data-goto="home">← Back</button>
+      <h2 class="screen-title">Puzzle Time</h2>
+    </div>
+    <div id="puzzle-board-container" class="board-container"></div>
+    <p class="puzzle-instruction" id="puzzle-instruction"></p>
+    <div class="puzzle-nav">
+      <button class="nav-arrow" id="puzzle-prev">◀</button>
+      <span id="puzzle-counter"></span>
+      <button class="nav-arrow" id="puzzle-next">▶</button>
+    </div>
+    <div id="puzzle-celebration" class="celebration hidden"></div>
+  </div>
+</div>
+
+<script src="/chess/chess.js"></script>
