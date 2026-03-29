@@ -5,6 +5,9 @@ on:
     branches:
       - main  # Adjust if your default branch is not 'main'
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
