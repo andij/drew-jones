@@ -242,6 +242,14 @@ html, body {
   line-height: 1;
 }
 
+.piece-white {
+  color: var(--chess-fg);
+}
+
+.piece-black {
+  color: var(--chess-bg);
+}
+
 .chess-piece.dragging {
   z-index: 100;
   transform: scale(1.2);

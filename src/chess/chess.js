@@ -8,7 +8,7 @@
 
   // ---- Unicode chess pieces ----
   const PIECE_CHARS = {
-    wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
+    wK: '♚', wQ: '♛', wR: '♜', wB: '♝', wN: '♞', wP: '♟',
     bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
   };
 
@@ -216,7 +216,7 @@
         var piece = board[r][c];
         if (piece) {
           var pieceEl = el('div', {
-            className: 'chess-piece',
+            className: 'chess-piece ' + (pieceColor(piece) === 'w' ? 'piece-white' : 'piece-black'),
             'data-piece': piece,
             'data-row': String(r),
             'data-col': String(c)
@@ -280,7 +280,7 @@
           sq.removeChild(existingPiece);
         } else if (piece && !existingPiece) {
           var pe = el('div', {
-            className: 'chess-piece',
+            className: 'chess-piece ' + (pieceColor(piece) === 'w' ? 'piece-white' : 'piece-black'),
             'data-piece': piece,
             'data-row': String(r),
             'data-col': String(c)
@@ -288,6 +288,7 @@
           sq.appendChild(pe);
         } else if (piece && existingPiece) {
           existingPiece.textContent = PIECE_CHARS[piece];
+          existingPiece.className = 'chess-piece ' + (pieceColor(piece) === 'w' ? 'piece-white' : 'piece-black');
           existingPiece.setAttribute('data-piece', piece);
           existingPiece.setAttribute('data-row', String(r));
           existingPiece.setAttribute('data-col', String(c));
@@ -363,7 +364,7 @@
       highlightMoves(boardEl, state.board, moves, target.row, target.col);
 
       // Create floating piece
-      floatingEl = el('div', { className: 'floating-piece' }, PIECE_CHARS[piece]);
+      floatingEl = el('div', { className: 'floating-piece ' + (pieceColor(piece) === 'w' ? 'piece-white' : 'piece-black') }, PIECE_CHARS[piece]);
       document.body.appendChild(floatingEl);
       floatingEl.style.left = pos.x + 'px';
       floatingEl.style.top = pos.y + 'px';
