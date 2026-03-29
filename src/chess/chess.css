@@ -555,3 +555,15 @@ html, body {
 .chess-square.last-move {
   background: rgba(255, 230, 109, 0.35);
 }
+
+/* ---- Flipped board (when playing as black) ---- */
+
+.board-flipped .chess-board {
+  transform: rotate(180deg);
+}
+
+.board-flipped .chess-board .chess-piece,
+.board-flipped .chess-board .valid-move::after,
+.board-flipped .chess-board .target-star::after {
+  transform: rotate(180deg);
+}

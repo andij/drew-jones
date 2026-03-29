@@ -191,11 +191,13 @@
     options = options || {};
     container.innerHTML = '';
 
-    var wrapper = el('div', { className: 'board-wrapper' });
+    var flipped = options.flipped || false;
+    var wrapper = el('div', { className: 'board-wrapper' + (flipped ? ' board-flipped' : '') });
 
     // Rank labels (left side)
     var rankLabels = el('div', { className: 'rank-labels' });
-    RANKS.forEach(function(r) {
+    var ranksOrder = flipped ? RANKS.slice().reverse() : RANKS;
+    ranksOrder.forEach(function(r) {
       rankLabels.appendChild(el('div', { className: 'board-label' }, r));
     });
     wrapper.appendChild(rankLabels);
@@ -232,7 +234,8 @@
 
     // File labels (bottom)
     var fileLabels = el('div', { className: 'file-labels' });
-    FILES.forEach(function(f) {
+    var filesOrder = flipped ? FILES.slice().reverse() : FILES;
+    filesOrder.forEach(function(f) {
       fileLabels.appendChild(el('div', { className: 'board-label' }, f));
     });
     wrapper.appendChild(fileLabels);
@@ -1058,7 +1061,7 @@
     var hName = hColor === 'w' ? 'White' : 'Black';
     $('#computer-title').textContent = 'You are ' + hName + '!';
 
-    computerBoardEl = createBoardDOM(container, board, { id: 'computer' });
+    computerBoardEl = createBoardDOM(container, board, { id: 'computer', flipped: hColor === 'b' });
 
     computerState = {
       board: board,
