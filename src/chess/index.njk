@@ -22,6 +22,10 @@ permalink: chess/index.html
         <span class="mode-icon">⭐</span>
         <span class="mode-label">Puzzle Time</span>
       </button>
+      <button class="mode-card" data-mode="computer">
+        <span class="mode-icon">🤖</span>
+        <span class="mode-label">Play Computer</span>
+      </button>
     </div>
   </div>
 
@@ -46,6 +50,22 @@ permalink: chess/index.html
     </div>
     <div id="freeplay-board-container" class="board-container"></div>
     <p class="hint-text" id="freeplay-hint">Tap a piece to see where it can move, then drag it!</p>
+  </div>
+
+  <div id="computer-screen" class="screen">
+    <div class="screen-header">
+      <button class="back-btn" data-goto="home">← Back</button>
+      <h2 class="screen-title" id="computer-title">Play Computer</h2>
+      <button class="reset-btn" id="computer-new">↺ New Game</button>
+    </div>
+    <div class="turn-indicator" id="turn-indicator"></div>
+    <div id="computer-board-container" class="board-container"></div>
+    <p class="hint-text" id="computer-hint">Your turn! Tap a piece to move.</p>
+    <div id="computer-captured" class="captured-pieces">
+      <div class="captured-row" id="captured-by-human"></div>
+      <div class="captured-row" id="captured-by-computer"></div>
+    </div>
+    <div id="computer-celebration" class="celebration hidden"></div>
   </div>
 
   <div id="puzzle-screen" class="screen">

@@ -466,3 +466,84 @@ html, body {
 .capture-anim {
   animation: capture-flash 0.3s ease forwards;
 }
+
+/* ---- Turn Indicator ---- */
+
+.turn-indicator {
+  font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.turn-indicator.your-turn {
+  background: var(--chess-success);
+  color: #1a1a2e;
+}
+
+.turn-indicator.computer-turn {
+  background: var(--chess-accent2);
+  color: var(--chess-fg);
+}
+
+.turn-indicator.game-over {
+  background: var(--chess-warning);
+  color: #1a1a2e;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+}
+
+/* ---- Captured Pieces ---- */
+
+.captured-pieces {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 600px;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+.captured-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  min-height: 1.6em;
+  align-items: center;
+}
+
+.captured-label {
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  opacity: 0.6;
+  margin-right: 6px;
+}
+
+/* ---- Computer thinking animation ---- */
+
+.chess-board.thinking {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.thinking-dots::after {
+  content: '';
+  animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+/* ---- Last move highlight ---- */
+
+.chess-square.last-move {
+  background: rgba(255, 230, 109, 0.35);
+}

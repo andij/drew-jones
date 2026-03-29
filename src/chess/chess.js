@@ -476,15 +476,15 @@
   }
 
   // ============================
-  //   CELEBRATION
+  //   CELEBRATION (shared)
   // ============================
 
-  function celebrate() {
-    var container = $('#puzzle-celebration');
+  function celebrateIn(containerId, message) {
+    var container = $(containerId);
+    if (!container) return;
     container.classList.remove('hidden');
     container.innerHTML = '';
 
-    // Confetti
     var colors = ['#e94560', '#4ecdc4', '#ffe66d', '#ff6b6b', '#48dbfb', '#ff9ff3'];
     for (var i = 0; i < 40; i++) {
       var piece = el('div', { className: 'confetti-piece' });
@@ -496,8 +496,7 @@
       container.appendChild(piece);
     }
 
-    // Text
-    var text = el('div', { className: 'celebration-text' }, 'Great Job! 🎉');
+    var text = el('div', { className: 'celebration-text' }, message || 'Great Job! 🎉');
     container.appendChild(text);
 
     soundSuccess();
@@ -506,6 +505,10 @@
       container.classList.add('hidden');
       container.innerHTML = '';
     }, 2500);
+  }
+
+  function celebrate() {
+    celebrateIn('#puzzle-celebration');
   }
 
   // ============================
@@ -833,6 +836,299 @@
   }
 
   // ============================
+  //   MODE: PLAY COMPUTER
+  // ============================
+
+  // Track which colour the human plays — alternates each game
+  var computerGameCount = 0;
+  var computerState = null;
+  var computerDragHandler = null;
+  var computerBoardEl = null;
+  var gameOver = false;
+
+  function humanColor() {
+    return computerGameCount % 2 === 0 ? 'w' : 'b';
+  }
+
+  function computerColor() {
+    return humanColor() === 'w' ? 'b' : 'w';
+  }
+
+  // ---- Child-level AI ----
+  // Mostly random with slight preferences:
+  // - Small chance to see a capture and take it
+  // - Occasional completely random move (simulates a 5-year-old opponent)
+  // - Sometimes ignores good moves on purpose
+
+  function getAllMoves(board, color) {
+    var allMoves = [];
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        var piece = board[r][c];
+        if (piece && pieceColor(piece) === color) {
+          var moves = getValidMoves(board, r, c);
+          moves.forEach(function(m) {
+            allMoves.push({ fromR: r, fromC: c, toR: m[0], toC: m[1], piece: piece });
+          });
+        }
+      }
+    }
+    return allMoves;
+  }
+
+  function computerChooseMove(board) {
+    var color = computerColor();
+    var allMoves = getAllMoves(board, color);
+    if (allMoves.length === 0) return null;
+
+    // Separate captures from non-captures
+    var captures = allMoves.filter(function(m) { return board[m.toR][m.toC] !== null; });
+    var nonCaptures = allMoves.filter(function(m) { return board[m.toR][m.toC] === null; });
+
+    // Child-level AI behaviour:
+    // - 30% chance to pick a capture if one is available
+    // - 10% chance to move a pawn forward (kids love pushing pawns)
+    // - Otherwise completely random
+    var roll = Math.random();
+
+    if (captures.length > 0 && roll < 0.3) {
+      // Take a random capture (doesn't evaluate which is best)
+      return captures[Math.floor(Math.random() * captures.length)];
+    }
+
+    // 10% chance to prefer a pawn move
+    if (roll < 0.4) {
+      var pawnMoves = nonCaptures.filter(function(m) { return pieceType(m.piece) === 'P'; });
+      if (pawnMoves.length > 0) {
+        return pawnMoves[Math.floor(Math.random() * pawnMoves.length)];
+      }
+    }
+
+    // Otherwise pick any random legal move
+    return allMoves[Math.floor(Math.random() * allMoves.length)];
+  }
+
+  // ---- Check if a King was captured ----
+
+  function findKing(board, color) {
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        if (board[r][c] === color + 'K') return true;
+      }
+    }
+    return false;
+  }
+
+  // ---- Render turn indicator & captured pieces ----
+
+  function updateTurnIndicator(turn) {
+    var ind = $('#turn-indicator');
+    if (gameOver) return;
+
+    var isHumanTurn = turn === humanColor();
+    ind.className = 'turn-indicator ' + (isHumanTurn ? 'your-turn' : 'computer-turn');
+
+    var humanName = humanColor() === 'w' ? 'White' : 'Black';
+    var cpuName = computerColor() === 'w' ? 'White' : 'Black';
+
+    if (isHumanTurn) {
+      ind.textContent = 'Your turn! (You are ' + humanName + ')';
+    } else {
+      ind.textContent = cpuName + ' is thinking...';
+    }
+  }
+
+  function renderCaptured(capturedByHuman, capturedByComputer) {
+    var humanRow = $('#captured-by-human');
+    var cpuRow = $('#captured-by-computer');
+    humanRow.innerHTML = '<span class="captured-label">You took:</span>';
+    cpuRow.innerHTML = '<span class="captured-label">Computer took:</span>';
+
+    capturedByHuman.forEach(function(p) {
+      humanRow.appendChild(el('span', {}, PIECE_CHARS[p]));
+    });
+    capturedByComputer.forEach(function(p) {
+      cpuRow.appendChild(el('span', {}, PIECE_CHARS[p]));
+    });
+  }
+
+  function showLastMove(boardEl, fromR, fromC, toR, toC) {
+    boardEl.querySelectorAll('.last-move').forEach(function(sq) {
+      sq.classList.remove('last-move');
+    });
+    var from = getSquare(boardEl, fromR, fromC);
+    var to = getSquare(boardEl, toR, toC);
+    if (from) from.classList.add('last-move');
+    if (to) to.classList.add('last-move');
+  }
+
+  function endGame(winner) {
+    gameOver = true;
+    var ind = $('#turn-indicator');
+    ind.className = 'turn-indicator game-over';
+
+    if (winner === 'human') {
+      ind.textContent = 'You won! Amazing! 🎉';
+      celebrateIn('#computer-celebration', 'You Won! 🏆');
+    } else if (winner === 'computer') {
+      ind.textContent = 'Computer wins! Good try! 👏';
+    } else {
+      ind.textContent = 'No more moves — it\'s a draw! 🤝';
+    }
+
+    $('#computer-hint').textContent = 'Tap "↺ New Game" to play again!';
+  }
+
+  // ---- Computer makes its move ----
+
+  function doComputerMove() {
+    if (gameOver) return;
+
+    var board = computerState.board;
+    var move = computerChooseMove(board);
+
+    if (!move) {
+      // No legal moves — stalemate/draw
+      endGame('draw');
+      return;
+    }
+
+    // Add a small delay so it feels like "thinking"
+    var delay = 600 + Math.floor(Math.random() * 800);
+
+    computerBoardEl.classList.add('thinking');
+
+    setTimeout(function() {
+      if (gameOver) return;
+
+      var captured = board[move.toR][move.toC];
+      board[move.toR][move.toC] = board[move.fromR][move.fromC];
+      board[move.fromR][move.fromC] = null;
+
+      // Auto-promote pawns to Queen
+      if (pieceType(board[move.toR][move.toC]) === 'P') {
+        var promoRow = computerColor() === 'w' ? 0 : 7;
+        if (move.toR === promoRow) {
+          board[move.toR][move.toC] = computerColor() + 'Q';
+        }
+      }
+
+      if (captured) {
+        computerState.capturedByComputer.push(captured);
+        soundCapture();
+      } else {
+        soundMove();
+      }
+
+      updateBoardDOM(computerBoardEl, board);
+      clearHighlights(computerBoardEl);
+      showLastMove(computerBoardEl, move.fromR, move.fromC, move.toR, move.toC);
+      renderCaptured(computerState.capturedByHuman, computerState.capturedByComputer);
+      computerBoardEl.classList.remove('thinking');
+
+      // Check if human King is gone
+      if (!findKing(board, humanColor())) {
+        endGame('computer');
+        return;
+      }
+
+      // Check if human has any moves
+      var humanMoves = getAllMoves(board, humanColor());
+      if (humanMoves.length === 0) {
+        endGame('draw');
+        return;
+      }
+
+      computerState.turn = humanColor();
+      updateTurnIndicator(computerState.turn);
+      $('#computer-hint').textContent = 'Your turn! Tap a piece to move.';
+    }, delay);
+  }
+
+  // ---- Init a computer game ----
+
+  function initComputer() {
+    gameOver = false;
+    var container = $('#computer-board-container');
+    var board = cloneBoard(INITIAL_BOARD);
+
+    var hColor = humanColor();
+    var cColor = computerColor();
+    var hName = hColor === 'w' ? 'White' : 'Black';
+    $('#computer-title').textContent = 'You are ' + hName + '!';
+
+    computerBoardEl = createBoardDOM(container, board, { id: 'computer' });
+
+    computerState = {
+      board: board,
+      selected: null,
+      validMoves: [],
+      turn: 'w', // white always starts
+      capturedByHuman: [],
+      capturedByComputer: [],
+      canDrag: function(piece) {
+        if (gameOver) return false;
+        if (computerState.turn !== hColor) return false;
+        return pieceColor(piece) === hColor;
+      },
+      onMove: function(fromR, fromC, toR, toC, captured) {
+        // Auto-promote human pawns
+        var movedPiece = board[toR][toC];
+        if (pieceType(movedPiece) === 'P') {
+          var promoRow = hColor === 'w' ? 0 : 7;
+          if (toR === promoRow) {
+            board[toR][toC] = hColor + 'Q';
+            updateBoardDOM(computerBoardEl, board);
+          }
+        }
+
+        if (captured) {
+          computerState.capturedByHuman.push(captured);
+        }
+        renderCaptured(computerState.capturedByHuman, computerState.capturedByComputer);
+        showLastMove(computerBoardEl, fromR, fromC, toR, toC);
+
+        var pName = PIECE_NAMES[pieceType(board[toR][toC])];
+        var file = FILES[toC];
+        var rank = RANKS[toR];
+        $('#computer-hint').textContent = pName + ' to ' + file + rank + (captured ? ' — Captured!' : '');
+
+        // Check if computer King is gone
+        if (!findKing(board, cColor)) {
+          endGame('human');
+          return;
+        }
+
+        // Switch to computer's turn
+        computerState.turn = cColor;
+        updateTurnIndicator(cColor);
+
+        // Computer plays
+        doComputerMove();
+      }
+    };
+
+    if (computerDragHandler) computerDragHandler.destroy();
+    computerDragHandler = setupDragDrop(computerBoardEl, computerState);
+
+    renderCaptured([], []);
+    updateTurnIndicator('w');
+
+    // If computer is white, it goes first
+    if (cColor === 'w') {
+      $('#computer-hint').textContent = 'Computer goes first...';
+      doComputerMove();
+    } else {
+      $('#computer-hint').textContent = 'Your turn! Tap a piece to move.';
+    }
+  }
+
+  function newComputerGame() {
+    computerGameCount++;
+    initComputer();
+  }
+
+  // ============================
   //   INIT
   // ============================
 
@@ -841,11 +1137,12 @@
     $$('.mode-card').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var mode = btn.getAttribute('data-mode');
-        showScreen(mode === 'meet' ? 'meet' : mode === 'freeplay' ? 'freeplay' : 'puzzle');
+        showScreen(mode);
 
         if (mode === 'meet') { meetIndex = 0; renderMeet(); }
         if (mode === 'freeplay') { initFreeplay(); }
         if (mode === 'puzzle') { puzzleIndex = 0; initPuzzle(); }
+        if (mode === 'computer') { initComputer(); }
       });
     });
 
@@ -866,6 +1163,9 @@
 
     // Free play reset
     $('#freeplay-reset').addEventListener('click', resetFreeplay);
+
+    // Computer new game
+    $('#computer-new').addEventListener('click', newComputerGame);
 
     // Puzzle navigation
     $('#puzzle-prev').addEventListener('click', function() {
