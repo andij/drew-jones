@@ -212,10 +212,21 @@ html, body {
   border-radius: 50%;
   background: var(--chess-valid);
   pointer-events: none;
+  outline: 3px solid rgba(128, 0, 0, 0.5);
+  outline-offset: -6px;
 }
 
-.chess-square.valid-capture {
-  box-shadow: inset 0 0 0 4px var(--chess-valid);
+.chess-square.valid-capture::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background: var(--chess-valid);
+  opacity: 0.5;
+  pointer-events: none;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .chess-square.highlight {
@@ -553,7 +564,9 @@ html, body {
 /* ---- Last move highlight ---- */
 
 .chess-square.last-move {
-  background: rgba(255, 230, 109, 0.35);
+  /* background: rgba(255, 230, 109, 0.35); */
+  outline: 3px solid rgba(128, 0, 0, 0.5);
+  outline-offset: -6px;
 }
 
 /* ---- Flipped board (when playing as black) ---- */
@@ -564,6 +577,7 @@ html, body {
 
 .board-flipped .chess-board .chess-piece,
 .board-flipped .chess-board .valid-move::after,
+.board-flipped .chess-board .valid-capture::after,
 .board-flipped .chess-board .target-star::after {
   transform: rotate(180deg);
 }
