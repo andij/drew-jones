@@ -1,71 +1,5 @@
 [
   {
-    "title": "8080 Local",
-    "url": "https://localhost:8080/",
-    "description": "Nucleus local development",
-    "icon": "binary",
-    "submenu": {
-      "links": [
-        { "title": "8000 Storybook", "url": "http://localhost:8000" },
-        { "title": "8081 Drew Jones", "url": "http://localhost:8081" }
-      ],
-      "paragraphs": [
-        "Local development server running on port 8080.",
-        "Used for testing and development purposes."
-      ]
-    }
-  },
-  {
-    "title": "Github",
-    "url": "https://github.com/andij?tab=repositories",
-    "description": "My GitHub repositories",
-    "icon": "github",
-    "submenu": {
-      "links": [
-        { "title": "Github Awesome", "url": "https://githubawesome.com/" }
-      ],
-      "paragraphs": [
-        "Discover awesome GitHub repositories daily."
-      ]
-    }
-  },
-  {
-    "title": "Service Now",
-    "url": "https://cnprod.service-now.com/",
-    "description": "Service Now portal",
-    "icon": "service-now"
-  },
-  {
-    "title": "Vert file converter",
-    "url": "https://vert.tamarin-jazz.ts.net/",
-    "description": "Convert files to other formats",
-    "icon": "file-box"
-  },
-  {
-    "title": "Copilot",
-    "url": "https://m365.cloud.microsoft/chat",
-    "description": "Microsoft 365 Copilot",
-    "icon": "sparkles"
-  },
-  {
-    "title": "Kanban",
-    "url": "https://github.com/orgs/centrica-engineering/projects/1/views/1",
-    "description": "Nucleus GitHub project board",
-    "icon": "square-kanban"
-  },
-  {
-    "title": "Proposals",
-    "url": "https://github.com/orgs/ConnectedHomes/projects/50/views/1",
-    "description": "Interactive visual essays and experiments",
-    "icon": "square-dashed-kanban"
-  },
-  {
-    "title": "Brand",
-    "url": "https://studio.corebook.io/#!/coreboard",
-    "description": "Corebook brand guidelines",
-    "icon": "palette"
-  },
-  {
     "title": "Lucide",
     "url": "https://lucide.dev/icons/",
     "description": "Beautiful & consistent icons",
@@ -74,8 +8,7 @@
       "links": [
         { "title": "Icons", "url": "https://lucide.dev/icons" },
         { "title": "Guide", "url": "https://lucide.dev/guide" }
-      ],
-      "paragraphs": ["Beautiful & consistent icons.", "Made by the community."]
+      ]
     }
   },
   {
@@ -88,14 +21,6 @@
     "title": "Hipsum",
     "url": "/hipsum",
     "description": "Hipster ipsum generator",
-    "icon": "case-sensitive",
-    "submenu": {
-      "links": [
-        { "title": "Mermaid", "url": "https://mermaid.ai/play#pako:eNqVU0tT2zAQ_is7PrWHwJRjDu00CQOBJM203DAHVVrH6ti7qiURMgz_vSuJmEzbCyc_9L32oedKs8FqWk0mk5o0U2N305oAQos9TmFAE59qyqdNx3vdqiHA3SJBAGb3dbXAxhKCIiPg_CpUaA-O5emth70NLeCTQx3QQIdqIEs7Dx809z1SAKZMcQM79qr7WFcPr_IwmXyGuZgsjQBtczgCTdQBAqo--_7iOBAeoOEBNHed-smDCpZpVJpnpUtRmo_nWJL9oxgYLAXcZUg6FbwX3d4xSYpR8zJrXonm9pTucJAcfWZ-PZ_JTx-k3pF2lWnXr1GkKW8tGTHXGbMUzJ2wi3mHEkcKjC4lvICeKbQesFPOo_kycpeZeyPcHzIrfFfDbzL39rmuvuOjxX2GpQJOM74U7K1gYcveBvuIYHunpJREX4n1LNrOQIMqRIkg7WTYRN1h9GewYB1TjDwhKceotBdpjoqII2lMBaaskWw4nI3psuOGj17nQLhT2T3ZrtMuMhAHUMbAm-PIX2XcJu-sG1CXANtWeYRPpZ8jdl2w5WOTP77dp7b0LH6r_29EDrjmAY9DlxvxO1q5Q2VVTlDLgGVFgZu_FqysasFWL38AQvMvdQ" }
-      ],
-      "paragraphs": [
-        "Hipster Ipsum is an artisan filler text."
-      ]
-    }
+    "icon": "case-sensitive"
   }
 ]
