@@ -48,6 +48,8 @@ main {
 }
 
 .drew {
+  font-size: min(1rem, 2vw);
+
   & h1,
   & p {
     font-family: "Petrona", serif;
