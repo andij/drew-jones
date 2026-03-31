@@ -1,15 +1,9 @@
 [
   {
-    "title": "Lucide",
-    "url": "https://lucide.dev/icons/",
-    "description": "Beautiful & consistent icons",
-    "icon": "circle-star",
-    "submenu": {
-      "links": [
-        { "title": "Icons", "url": "https://lucide.dev/icons" },
-        { "title": "Guide", "url": "https://lucide.dev/guide" }
-      ]
-    }
+    "title": "Home",
+    "url": "/",
+    "description": "Welcome to the homepage",
+    "icon": "home"
   },
   {
     "title": "Chess",

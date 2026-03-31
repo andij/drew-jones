@@ -70,18 +70,26 @@ main {
   }
 }
 
+#content {
+  padding-inline-start: 1em;
+  padding-inline-end: 1em;
+}
+
 .navigation {
   justify-self: start;
   position: sticky;
   top: 0;
-  opacity: 0.5;
   display: flex;
   padding: 1em;
   box-sizing: border-box;
   transition: opacity 0.3s ease-in-out;
+  width: 100%;
+  background-color: rgba(1, 11, 12, 0.5);
+  backdrop-filter: blur(0.5em);
+  box-shadow: 0 0 0.5em 0.5em rgba(1, 11, 12, 0.8);
 
   &:hover {
-    opacity: 1;
+    background-color: rgba(1, 11, 12, 0.8);
   }
 
   & .menu {
