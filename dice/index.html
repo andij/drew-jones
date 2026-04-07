@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dice - Roll the dice! A fun six-sided dice for kids">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Petrona:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Dice - Roll the dice!</title>
+  </head>
+
+  <body>
+    <main>
+      
+<style>
+  .dice-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80dvh;
+    gap: 2rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .dice-title {
+    font-family: "Petrona", serif;
+    font-size: clamp(2rem, 8vw, 4rem);
+    color: var(--color-bright);
+    margin: 0;
+    text-transform: lowercase;
+  }
+
+  .dice-scene {
+    width: 160px;
+    height: 160px;
+    perspective: 600px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .dice-cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: none;
+  }
+
+  .dice-cube.rolling {
+    animation: diceRoll 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  .dice-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 160px;
+    border-radius: 24px;
+    background: white;
+    border: 4px solid #e8e8e8;
+    display: grid;
+    box-sizing: border-box;
+    padding: 18px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.08);
+    backface-visibility: hidden;
+  }
+
+  .dice-face--1 { transform: rotateY(0deg)   translateZ(80px); }
+  .dice-face--2 { transform: rotateY(180deg) translateZ(80px); }
+  .dice-face--3 { transform: rotateY(90deg)  translateZ(80px); }
+  .dice-face--4 { transform: rotateY(-90deg) translateZ(80px); }
+  .dice-face--5 { transform: rotateX(90deg)  translateZ(80px); }
+  .dice-face--6 { transform: rotateX(-90deg) translateZ(80px); }
+
+  .dot {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
+  }
+
+  /* Face 1: single centre dot */
+  .dice-face--1 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+  .dice-face--1 .dot { width: 40px; height: 40px; }
+
+  /* Face 2: two dots diagonal */
+  .dice-face--2 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .dice-face--2 .dot { width: 30px; height: 30px; }
+  .dice-face--2 .dot:nth-child(1) { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; }
+  .dice-face--2 .dot:nth-child(2) { grid-column: 2; grid-row: 2; align-self: end;   justify-self: end;   }
+
+  /* Face 3: three dots diagonal */
+  .dice-face--3 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+  .dice-face--3 .dot { width: 28px; height: 28px; }
+  .dice-face--3 .dot:nth-child(1) { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; }
+  .dice-face--3 .dot:nth-child(2) { grid-column: 1; grid-row: 2; align-self: center; justify-self: center; }
+  .dice-face--3 .dot:nth-child(3) { grid-column: 2; grid-row: 3; align-self: end;   justify-self: end;   }
+
+  /* Face 4: four corners */
+  .dice-face--4 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .dice-face--4 .dot { width: 28px; height: 28px; }
+  .dice-face--4 .dot:nth-child(1) { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; }
+  .dice-face--4 .dot:nth-child(2) { grid-column: 2; grid-row: 1; align-self: start; justify-self: end;   }
+  .dice-face--4 .dot:nth-child(3) { grid-column: 1; grid-row: 2; align-self: end;   justify-self: start; }
+  .dice-face--4 .dot:nth-child(4) { grid-column: 2; grid-row: 2; align-self: end;   justify-self: end;   }
+
+  /* Face 5: four corners + centre */
+  .dice-face--5 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+  .dice-face--5 .dot { width: 26px; height: 26px; }
+  .dice-face--5 .dot:nth-child(1) { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; }
+  .dice-face--5 .dot:nth-child(2) { grid-column: 2; grid-row: 1; align-self: start; justify-self: end;   }
+  .dice-face--5 .dot:nth-child(3) { grid-column: 1; grid-row: 3; align-self: end;   justify-self: start; }
+  .dice-face--5 .dot:nth-child(4) { grid-column: 2; grid-row: 3; align-self: end;   justify-self: end;   }
+  .dice-face--5 .dot:nth-child(5) {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Face 6: two columns three rows */
+  .dice-face--6 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+  .dice-face--6 .dot { width: 26px; height: 26px; }
+  .dice-face--6 .dot:nth-child(1) { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; }
+  .dice-face--6 .dot:nth-child(2) { grid-column: 2; grid-row: 1; align-self: start; justify-self: end;   }
+  .dice-face--6 .dot:nth-child(3) { grid-column: 1; grid-row: 2; align-self: center; justify-self: start; }
+  .dice-face--6 .dot:nth-child(4) { grid-column: 2; grid-row: 2; align-self: center; justify-self: end;   }
+  .dice-face--6 .dot:nth-child(5) { grid-column: 1; grid-row: 3; align-self: end;   justify-self: start; }
+  .dice-face--6 .dot:nth-child(6) { grid-column: 2; grid-row: 3; align-self: end;   justify-self: end;   }
+
+  /* Rolling animation – spins fast then slows to final position */
+  @keyframes diceRoll {
+    0%   { transform: rotateX(0deg)    rotateY(0deg)    rotateZ(0deg); }
+    15%  { transform: rotateX(360deg)  rotateY(270deg)  rotateZ(90deg); }
+    35%  { transform: rotateX(720deg)  rotateY(540deg)  rotateZ(180deg); }
+    55%  { transform: rotateX(900deg)  rotateY(810deg)  rotateZ(270deg); }
+    75%  { transform: rotateX(1080deg) rotateY(900deg)  rotateZ(315deg); }
+    90%  { transform: var(--final-transform) rotateX(20deg) rotateY(10deg); }
+    100% { transform: var(--final-transform); }
+  }
+
+  .roll-btn {
+    font-family: "Petrona", serif;
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-weight: 700;
+    padding: 0.75em 2em;
+    border-radius: 100px;
+    border: none;
+    background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+    color: #1a0000;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    transition: transform 0.1s, box-shadow 0.1s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  .roll-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+  }
+
+  .roll-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .result {
+    font-family: "Petrona", serif;
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    color: var(--color-muted);
+    min-height: 2.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .result.show {
+    opacity: 1;
+  }
+
+  .result-emoji {
+    font-size: 1.5em;
+  }
+</style>
+
+<nav class="navigation">
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="home" aria-hidden="true"></i></div>
+      <a class="link" href="/" title="Welcome to the homepage">Home</a>
+    </div>
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="crown" aria-hidden="true"></i></div>
+      <a class="link" href="/chess/" title="Learn chess pieces and moves">Chess</a>
+    </div>
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="case-sensitive" aria-hidden="true"></i></div>
+      <a class="link" href="/hipsum" title="Hipster ipsum generator">Hipsum</a>
+    </div>
+  </div>
+  
+  <div class="menu">
+    <div class="main">
+      <div class="icon" tabindex="0"><i data-lucide="dice-6" aria-hidden="true"></i></div>
+      <a class="link" href="/dice" title="Roll a six-sided dice">Dice</a>
+    </div>
+  </div>
+  
+</nav>
+
+<div class="dice-page">
+  <h1 class="dice-title">🎲 Roll the Dice!</h1>
+
+  <div class="dice-scene" id="diceScene" aria-hidden="true">
+    <div class="dice-cube" id="diceCube">
+      <div class="dice-face dice-face--1">
+        <div class="dot"></div>
+      </div>
+      <div class="dice-face dice-face--2">
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dice-face dice-face--3">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dice-face dice-face--4">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dice-face dice-face--5">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dice-face dice-face--6">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="roll-btn" id="rollBtn">Roll! 🎲</button>
+
+  <div class="result" id="result" aria-live="polite">
+    <span class="result-emoji" id="resultEmoji"></span>
+    <span id="resultText"></span>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var cube = document.getElementById('diceCube');
+    var btn  = document.getElementById('rollBtn');
+    var resultEl     = document.getElementById('result');
+    var resultTextEl = document.getElementById('resultText');
+    var resultEmojiEl = document.getElementById('resultEmoji');
+
+    // Final resting transforms so the chosen face points toward the viewer.
+    // The CSS faces are placed as:
+    //   face 1 → front  (rotateY 0)
+    //   face 2 → back   (rotateY 180)
+    //   face 3 → right  (rotateY 90)
+    //   face 4 → left   (rotateY -90)
+    //   face 5 → top    (rotateX 90deg translateZ)  – rotateX(-90deg) brings face 5 to front
+    //   face 6 → bottom (rotateX -90deg translateZ) – rotateX(90deg)  brings face 6 to front
+    var faceTransforms = {
+      1: 'rotateX(0deg) rotateY(0deg)',
+      2: 'rotateX(0deg) rotateY(180deg)',
+      3: 'rotateX(0deg) rotateY(-90deg)',
+      4: 'rotateX(0deg) rotateY(90deg)',
+      5: 'rotateX(-90deg) rotateY(0deg)',
+      6: 'rotateX(90deg) rotateY(0deg)'
+    };
+
+    var messages = {
+      1: [{ text: 'One! Just one!', emoji: '🐝' }, { text: 'Uno!', emoji: '🌟' }],
+      2: [{ text: 'Two! Pair of dots!', emoji: '👀' }, { text: 'Two! Nice!', emoji: '🐾' }],
+      3: [{ text: 'Three! Hip hip!', emoji: '🐸' }, { text: 'Three! Woo!', emoji: '🌈' }],
+      4: [{ text: 'Four! Four dots!', emoji: '🦋' }, { text: 'Four! Amazing!', emoji: '🍀' }],
+      5: [{ text: 'Five! High five!', emoji: '✋' }, { text: 'Five! Superstar!', emoji: '⭐' }],
+      6: [{ text: 'Six! The biggest!', emoji: '🎉' }, { text: 'Six! You got it!', emoji: '🚀' }]
+    };
+
+    function roll() {
+      btn.disabled = true;
+      resultEl.classList.remove('show');
+
+      var result = Math.floor(Math.random() * 6) + 1;
+      var finalTransform = faceTransforms[result];
+
+      // Remove old animation class so it can be re-applied
+      cube.classList.remove('rolling');
+      // Force reflow to reset animation
+      void cube.offsetWidth;
+
+      cube.style.setProperty('--final-transform', finalTransform);
+      cube.classList.add('rolling');
+
+      setTimeout(function () {
+        cube.classList.remove('rolling');
+        cube.style.transform = finalTransform;
+
+        var msgs = messages[result];
+        var msg  = msgs[Math.floor(Math.random() * msgs.length)];
+
+        resultEmojiEl.textContent = msg.emoji;
+        resultTextEl.textContent  = msg.text;
+        resultEl.classList.add('show');
+
+        btn.disabled = false;
+      }, 3000);
+    }
+
+    btn.addEventListener('click', roll);
+  }());
+</script>
+
+    </main>
+  </body>
+
+  <script>
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
+  </script>
+
+</html>
