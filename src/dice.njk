@@ -48,6 +48,8 @@ layout: base.njk
 
   .dice-face {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 160px;
     height: 160px;
     border-radius: 24px;
@@ -57,6 +59,7 @@ layout: base.njk
     box-sizing: border-box;
     padding: 18px;
     box-shadow: inset 0 0 12px rgba(0,0,0,0.08);
+    backface-visibility: hidden;
   }
 
   .dice-face--1 { transform: rotateY(0deg)   translateZ(80px); }
@@ -116,7 +119,6 @@ layout: base.njk
   .dice-face--5 {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    position: relative;
   }
   .dice-face--5 .dot { width: 26px; height: 26px; }
   .dice-face--5 .dot:nth-child(1) { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; }
@@ -275,15 +277,15 @@ layout: base.njk
     //   face 2 → back   (rotateY 180)
     //   face 3 → right  (rotateY 90)
     //   face 4 → left   (rotateY -90)
-    //   face 5 → top    (rotateX 90)  – rotateX(-90) brings face 5 to front
-    //   face 6 → bottom (rotateX -90) – rotateX(90)  brings face 6 to front
+    //   face 5 → top    (rotateX 90deg translateZ)  – rotateX(-90deg) brings face 5 to front
+    //   face 6 → bottom (rotateX -90deg translateZ) – rotateX(90deg)  brings face 6 to front
     var faceTransforms = {
       1: 'rotateX(0deg) rotateY(0deg)',
       2: 'rotateX(0deg) rotateY(180deg)',
       3: 'rotateX(0deg) rotateY(-90deg)',
       4: 'rotateX(0deg) rotateY(90deg)',
-      5: 'rotateX(90deg) rotateY(0deg)',
-      6: 'rotateX(-90deg) rotateY(0deg)'
+      5: 'rotateX(-90deg) rotateY(0deg)',
+      6: 'rotateX(90deg) rotateY(0deg)'
     };
 
     var messages = {
