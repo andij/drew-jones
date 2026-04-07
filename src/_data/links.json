@@ -16,5 +16,11 @@
     "url": "/hipsum",
     "description": "Hipster ipsum generator",
     "icon": "case-sensitive"
+  },
+  {
+    "title": "Dice",
+    "url": "/dice",
+    "description": "Roll a six-sided dice",
+    "icon": "dice-6"
   }
 ]
